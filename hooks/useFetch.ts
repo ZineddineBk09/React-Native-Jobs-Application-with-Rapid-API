@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { X_RapidAPI_Key } from "@env";
-
-const rapidApiKey: string = X_RapidAPI_Key;
+import { Alert } from "react-native";
 
 const useFetch = ({
   endpoint,
-  query,
+  params,
 }: {
   endpoint: string;
-  query: {
+  params: {
     query: string;
     page: string;
     num_pages: string;
@@ -17,25 +15,28 @@ const useFetch = ({
 }) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [err, setErr] = useState(null);
 
   const options = {
     method: "GET",
     url: "https://jsearch.p.rapidapi.com/" + endpoint,
-    params: { ...query },
+    params: { ...params },
     headers: {
-      "X-RapidAPI-Key": rapidApiKey,
+      "X-RapidAPI-Key": process.env.X_RapidAPI_Key as string,
       "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
     },
   };
 
+
   const fetchData = async () => {
     try {
-      const response = axios.request(options);
+      const response = await axios.request(options);
       setData(response.data as any);
       setLoading(false);
-    } catch (err) {
-      setError(err);
+    } catch (error) {
+      setErr(error);
+      // alert error
+      Alert.alert("Something went wrong", "Please try again later.")
     } finally {
       setLoading(false);
     }
@@ -50,4 +51,8 @@ const useFetch = ({
     setLoading(true);
     fetchData();
   };
+
+  return { data, loading, err, refetch };
 };
+
+export default useFetch;
