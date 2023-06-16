@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Alert } from "react-native";
+import { X_RapidAPI_Key } from "file.hidden";
 
 const useFetch = ({
   endpoint,
@@ -22,11 +23,10 @@ const useFetch = ({
     url: "https://jsearch.p.rapidapi.com/" + endpoint,
     params: { ...params },
     headers: {
-      "X-RapidAPI-Key": process.env.X_RapidAPI_Key as string,
+      "X-RapidAPI-Key": X_RapidAPI_Key,
       "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
     },
   };
-
 
   const fetchData = async () => {
     try {
@@ -36,7 +36,7 @@ const useFetch = ({
     } catch (error) {
       setErr(error);
       // alert error
-      Alert.alert("Something went wrong", "Please try again later.")
+      Alert.alert("Something went wrong", "Please try again later.");
     } finally {
       setLoading(false);
     }
