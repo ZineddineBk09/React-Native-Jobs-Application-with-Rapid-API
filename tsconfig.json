@@ -1,0 +1,7 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  // change import path to @ on the root of the project
+  "compilerOptions": {
+    "baseUrl": "."
+  }
+}
