@@ -8,7 +8,6 @@ const PopularJobCard: React.FC<any> = ({
   selectedJob,
   handleCardPress,
 }) => {
-  console.log(item);
   return (
     <TouchableOpacity
       style={styles.container(selectedJob, item)}

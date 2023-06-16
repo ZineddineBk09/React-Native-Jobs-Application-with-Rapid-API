@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Alert } from "react-native";
-import { X_RapidAPI_Key } from "file.hidden";
+import { X_RapidAPI_Key } from "../file.hidden";
 
 const useFetch = ({
   endpoint,
