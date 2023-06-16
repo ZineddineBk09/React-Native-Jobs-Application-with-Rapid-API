@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-
 import styles from "./popularjobcard.style";
+import { checkImageURL } from "../../../../utils";
 
 const PopularJobCard: React.FC<any> = ({
   item,
@@ -16,7 +16,11 @@ const PopularJobCard: React.FC<any> = ({
     >
       <TouchableOpacity style={styles.logoContainer(selectedJob, item)}>
         <Image
-          source={{ uri: item?.employer_logo }}
+          source={{
+            uri: checkImageURL(item?.employer_logo)
+              ? item?.employer_logo
+              : 'https://www.hatimeria.com/images/people/skills.jpg',
+          }}
           resizeMode="contain"
           style={styles.logoImage}
         />
